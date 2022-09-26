@@ -1,13 +1,13 @@
-* doc-toc
+* Doc Tools TOC
 [[https://www.gnu.org/licenses/gpl-3.0.en.html][https://img.shields.io/badge/license-GPLv3-blue.svg]]
 
 Create, cleanup, add and manage Table Of Contents (TOC) of pdf and djvu documents with Emacs
+
 * Introduction
-TOC-mode is a package for creating, cleaning, adding and managing the
-Table Of Contents (TOC) of pdf and djvu documents.
+Doc Tools TOC is a package for creating, cleaning, adding and managing the Table
+Of Contents (TOC) of pdf and djvu documents.
 
 This package is also provided by the [[https://github.com/dalanicolai/toc-layer][toc-layer for Spacemacs]]
-
 
 ** Features:
   - Extract Table of Contents from documents via text layer or via Tesseract OCR
@@ -25,11 +25,15 @@ For regular Emacs users, well... you probably know how to install packages.
 To use the pdf.tocgen functionality that software has to be installed (see
 [[https://krasjet.com/voice/pdf.tocgen/]]). For the other remaining functionality
 the package requires ~pdftotext~ (part of poppler-utils), ~pdfoutline~ (part of
-[[https://launchpad.net/ubuntu/bionic/+package/fntsample][fntsample]] or from [[https://github.com/yutayamamoto/pdfoutline][Github]] (not from Pypi as the package seems broken)) and ~djvused~ (part of [[http://djvu.sourceforge.net/][http://djvu.sourceforge.net/]]) command line
-utilities to be available. Extraction with OCR requires the ~tesseract~ command
-line utility to be available.
+[[https://launchpad.net/ubuntu/bionic/+package/fntsample][fntsample]] or from [[https://github.com/yutayamamoto/pdfoutline][Github]] (not from Pypi as the package seems broken)) and
+~djvused~ (part of [[http://djvu.sourceforge.net/][http://djvu.sourceforge.net/]]) command line utilities to be
+available. Extraction with OCR requires the ~tesseract~ command line utility to be
+available.
 
 * Usage
+** pdf-tocgen (software generated PDF's)
+[[https://krasjet.com/voice/pdf.tocgen/]]
+
 For 'software-generated' (i.e. PDF's not created from scans) PDF-files it is
 recommend to use =doc-toc-extract-with-pdf-tocgen=. To use this function you first
 have to provide the font properties for the different headline levels. For that
@@ -43,6 +47,7 @@ original PDF with the filename output.pdf and this copy will be opened in a new
 buffer. If the pdf-tocgen option does not work well then continue with the steps
 below.
 
+** toc-mode
 In each step below, check out available shortcuts using =C-h m=. Additionally you
 can find available functions by typing the M-x mode-name (e.g. =M-x doc-toc-cleanup=),
 or with two dashes in the mode name (e.g. =M-x doc-toc--cleanup=). Of course if you
@@ -59,7 +64,7 @@ can find available functions by typing the =M-x mode-name= (e.g. =M-x doc-toc-cl
 or with two dashes in the mode name (e.g. =M-x doc-toc--cleanup=). Of course if you
 use packages like Ivy or Helm you just use the fuzzy search functionality.
 
-** 1. Extraction
+*** 1. Extraction
 For PDFs without TOC pages, with a very complicated TOC (i.e. that
 require much cleanup work) or with headlines well fitted for automatic
 extraction (you will have to decide for yourself by trying it), consider to use
@@ -89,24 +94,10 @@ to extract the text with the [[https://pypi.org/project/document-contents-extrac
 more configurable (you are also welcome to hack on and improve that script). For
 this the [[https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html][tesseract]] documentation might be useful.
 
-*** Software-generated PDF's with pdf.tocgen ( [[https://krasjet.com/voice/pdf.tocgen/]])
-For 'software-generated' (i.e. PDF's not created from scans) PDF-files it is
-sometimes easier to use ~doc-toc-extract-with-pdf-tocgen~. To use this function
-you first have to provide the font properties for the different headline
-levels. For that select the word in a headline of a certain level and then
-type M-x ~doc-toc-gen-set-level~. This function will ask which level you are
-setting, the highest level should be level 1. After you have set the various
-levels (1,2, etc.) then it is time to run M-x ~doc-toc-extract-with-pdf-tocgen~.
-If a TOC is extracted succesfully, then in the pdftocgen-mode buffer simply
-press C-c C-c to add the contents to the PDF. The contents will be added to a
-copy of the original PDF with the filename output.pdf and this copy will be
-opened in a new buffer. If the pdf-tocgen option does not work well then
-continue with the steps below.
-
 If you merely want to extract text without further processing then you can
 use the command [[help:doc-toc-extract-only][doc-toc-extract-only]].
 
-** 2. TOC-Cleanup
+*** 2. TOC-Cleanup
 In this mode you can further cleanup the contents to create a list where
 each line has the structure:
 
@@ -142,7 +133,7 @@ there is a space character before the ~\&~).
 
 Type =C-c C-c= when finished
 
-** 3. TOC-tabular (adjust pagenumbers)
+*** 3. TOC-tabular (adjust pagenumbers)
 This mode provides the functionality for easy adjustment of pagenmumbers. The
 buffer can be navigated with the arrow =up/down= keys. The =left= and =right= arrow
 keys will shift =down/up= all the page numbers from the current line and below
@@ -158,11 +149,11 @@ all level 0 sections correspond to the page numbers in the document). The
 window and, =C-up/C-down= will scroll smoothly in that window.
 
 If you discover some small error in some field, then you put the cursor on that
-field and press =C-r= to correct the text in that field.
+field and press =r= to correct the text in that field.
 
 Type =C-c C-c= when done.
 
-** 4. TOC-mode (add outline to document)
+*** 4. TOC-mode (add outline to document)
 The text of this buffer should have the right structure for adding the contents
 to (for pdf's a copy of) the original document. Final adjustments can be done but
 should not be necessary. Type =C-c C-c= for adding the contents to the
@@ -198,13 +189,13 @@ doc-toc-cleanup-mode
 | =C-c C-s= | doc-toc--roman-to-arabic           |
 doc-toc-mode (tablist)
 | ~TAB~            | preview/jump-to-page                                                 |
-| ~right/left~     | doc-toc-in/decrease-remaining                                            |
-| ~C-right/C-left~ | doc-toc-in/decrease-remaining and view page                              |
+| ~right/left~     | doc-toc-in/decrease-remaining                                        |
+| ~C-right/C-left~ | doc-toc-in/decrease-remaining and view page                          |
 | ~S-right/S-left~ | in/decrease pagenumber current entry                                 |
 | ~C-down/C-up~    | scroll document other window (only when other buffer shows document) |
 | ~S-down/S-up~    | full page scroll document other window ( idem )                      |
-| =C-j=            | doc-toc--jump-to-next-entry-by-level                                     |
-| =C-r=            | doc-toc--replace-input                                                   |
+| =C-j=            | doc-toc--jump-to-next-entry-by-level                                 |
+| =r=              | doc-toc--replace-input                                               |
 
 
 * Alternatives

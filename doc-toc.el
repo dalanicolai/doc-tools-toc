@@ -3,7 +3,7 @@
 ;; Copyright (C) 2022  Free Software Foundation, Inc.
 
 ;; Author: Daniel Laurens Nicolai <dalanicolai@gmail.com>
-;; Version: 0
+;; Version: 1.0
 ;; Keywords: tools, outlines, convenience
 ;; Package-Requires: ((emacs "26.1"))
 ;; URL: https://github.com/dalanicolai/doc-tools-toc
