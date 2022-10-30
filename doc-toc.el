@@ -3,7 +3,7 @@
 ;; Copyright (C) 2022  Free Software Foundation, Inc.
 
 ;; Author: Daniel Laurens Nicolai <dalanicolai@gmail.com>
-;; Version: 1.0
+;; Version: 1.01
 ;; Keywords: tools, outlines, convenience
 ;; Package-Requires: ((emacs "26.1"))
 ;; URL: https://github.com/dalanicolai/doc-tools-toc
@@ -623,9 +623,8 @@ Prompt for startpage and endpage and print OCR output to new buffer."
                                                nil
                                                (number-to-string page)
                                                (image-property djvu-doc-image :data))))))
-              (apply #'call-process
-                     (append (list "tesseract" nil (list buffer nil) nil file)
-                             args))
+              (apply #'call-process "tesseract" nil (list buffer nil) nil
+                     file args)
               (setq page (1+ page))))
           (switch-to-buffer buffer)))))
 
