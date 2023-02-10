@@ -276,15 +276,20 @@ number 2 etc."
   (let* ((page (pdf-view-current-page))
          (filename (url-filename (url-generic-parse-url buffer-file-name)))
          (pdfxmeta-result (shell-command
-                           (format "pdfxmeta --auto %s --page %s '%s' \"%s\" >> recipe.toml"
+                           (format "pdfxmeta --auto %s --page %s %s \"%s\" >> recipe.toml"
                                    level
                                    page
-                                   filename
+                                   (shell-quote-argument filename)
                                    (car (pdf-view-active-region-text))))))
+         ;; (pdfxmeta-result (call-process "pdfxmeta" nil "recipe.toml" nil
+         ;;                                "--auto" (number-to-string level)
+         ;;                                "--page" (number-to-string page)
+         ;;                                (shell-quote-argument filename)
+         ;;                                (concat "\"" (car (pdf-view-active-region-text)) "\""))))
     (when (eq pdfxmeta-result 1)
       (let ((page-text (shell-command-to-string
-                        (format "mutool draw -F text '%s' %s"
-                                filename
+                        (format "mutool draw -F text %s %s"
+                                (shell-quote-argument filename)
                                 page
                                 ))))
         (pop-to-buffer "page-text")
