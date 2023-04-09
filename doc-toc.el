@@ -3,7 +3,7 @@
 ;; Copyright (C) 2022  Free Software Foundation, Inc.
 
 ;; Author: Daniel Laurens Nicolai <dalanicolai@gmail.com>
-;; Version: 1.01
+;; Version: 1.02
 ;; Keywords: tools, outlines, convenience
 ;; Package-Requires: ((emacs "26.1"))
 ;; URL: https://github.com/dalanicolai/doc-tools-toc
@@ -674,6 +674,7 @@ adjustment."
 (defun doc-toc--convert-to-tabulated-list ()
   "Parse and prepare content of current buffer for `doc-toc-tabular-mode'."
   (interactive)
+  (untabify (point-min) (point-max))
   (goto-char (point-min))
   (let (lines
         levels)
